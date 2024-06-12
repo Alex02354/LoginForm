@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import "./custom-phone-input.css";
 
 const LoginForm = ({ onScanLoginClick }) => {
   const [value, setValue] = useState();
   const [isEmailSelected, setIsEmailSelected] = useState(true);
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
 
   return (
     <form>
@@ -58,15 +65,23 @@ const LoginForm = ({ onScanLoginClick }) => {
           />
         </div>
       )}
-      <div className="mb-3">
+      <div className="mb-3 relative">
         <label className="font-medium mb-2 flex dark:text-regal-header">
           Password
         </label>
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full border rounded-xl bg-transparent border-regal-darkgray dark:border-regal-darkgray p-3 dark:text-regal-darkgray"
-        />
+        <div className="relative">
+          <input
+            type={passwordVisible ? "text" : "password"}
+            placeholder="Password"
+            className="w-full border rounded-xl bg-transparent border-regal-darkgray dark:border-regal-darkgray p-3 dark:text-regal-darkgray pr-10"
+          />
+          <span
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-regal-darkgray dark:text-regal-darkgray"
+            onClick={togglePasswordVisibility}
+          >
+            <FontAwesomeIcon icon={passwordVisible ? faEyeSlash : faEye} />
+          </span>
+        </div>
       </div>
       <div className="flex justify-between mb-6">
         <span
